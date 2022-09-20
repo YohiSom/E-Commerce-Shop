@@ -1,0 +1,45 @@
+.inStock-container {
+    display: flex;
+    justify-content: center;
+    border-style: groove;
+    width: fit-content;
+    padding: 10px;
+    flex-direction: column;
+    border-width: 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.price-container {
+    display: flex;
+    width:126px;
+    justify-content: space-between;
+ 
+    
+    
+}
+
+.price-card {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.value-price-card {
+    display: flex;
+}
+
+.stock-container {
+    display: flex;
+    width:126px;
+    justify-content: space-between;
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+}
+
+.button-cart {
+    margin-top: 12px;
+
+    .ant-btn {
+        background: rgb(0 0 0 / 85%);
+        color: #fafafa;
+    }
+}

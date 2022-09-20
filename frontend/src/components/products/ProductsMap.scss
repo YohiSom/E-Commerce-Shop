@@ -1,0 +1,47 @@
+
+
+.products-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   margin-top: 10px;
+}
+
+.product-page {
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    
+}
+
+.description-card {
+    height: 370px;
+    width: 397px;
+    margin-left: 20px;
+    justify-content: center; 
+    display: flex;
+    flex-direction: column;
+}
+
+.product-page-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* align-items: center; */
+    margin-left: 30px;
+}
+
+.instock-dertails-card {
+    display: flex;
+
+}
+
+.spinner-product {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+
+}

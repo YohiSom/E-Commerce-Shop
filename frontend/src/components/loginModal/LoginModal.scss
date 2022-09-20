@@ -1,0 +1,33 @@
+.modal-login{
+
+   .ant-btn-primary {
+        background:  rgb(0 0 0 / 85%);
+        border-color:  rgb(0 0 0 / 85%);
+    }
+    // .ant-modal-content{
+    //     pointer-events: none;
+    // }
+}
+
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.login-input {
+    resize: none;
+    padding: 5px
+}
+.label-input {
+    margin-right: 10px;
+}
+
+.not-yet-btn {
+    margin-top: 5px;
+    border: none;
+    background: none;
+    text-decoration: underline;
+    cursor: pointer;
+}

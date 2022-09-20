@@ -1,0 +1,28 @@
+.cart-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.cart-product-container {
+    display: flex;
+    justify-content: space-between;
+    width: 1061px;
+    margin-top: 10px;
+    border-bottom: 1px solid #bbb;
+    
+}
+
+.cart-img {
+    width: 252px;
+    height: 197px;
+}
+
+.cart-name {
+    align-self: center;
+}
+
+.cart-empty {
+    font-size: x-large;
+}

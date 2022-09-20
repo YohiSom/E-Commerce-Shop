@@ -1,0 +1,29 @@
+.subtotal-container {
+    margin-top: 50px;
+    // border:1px solid #bbb;
+    border-style: groove;
+    border-width: 2px;
+    width: 265px;
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.total-items-container {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    // margin-top: 5px;
+    border-bottom: 1px solid #bbb;
+}
+
+.total-items {
+    font-weight: bold;
+}
+
+.checkout-btn {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
