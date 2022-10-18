@@ -8,6 +8,8 @@ import Profile from "./pages/Profile";
 import Protected from "./components/ProtectedRoute";
 import { useSelector } from "react-redux";
 import ShippingPage from "./pages/ShippingPage";
+import PaymentPage from "./pages/PaymentPage";
+import PlaceOrderPage from "./pages/PlaceOrderPage";
 
 function App() {
   const user = useSelector((state) => state.user.user);
@@ -20,6 +22,8 @@ function App() {
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/shipping" element={<ShippingPage />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/order" element={<PlaceOrderPage />} />
           <Route
             path="/profile"
             element={

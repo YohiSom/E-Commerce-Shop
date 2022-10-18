@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const getLocalStorage = JSON.parse(localStorage.getItem("user"));
+const getLocalStorageShipping = JSON.parse(localStorage.getItem("shipping"));
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
     user: getLocalStorage || null,
+    shippingDetails: getLocalStorageShipping || null,
     modalOpen: false,
   },
   reducers: {
@@ -25,6 +27,10 @@ const userSlice = createSlice({
     clearUser(state) {
       state.user = null;
       localStorage.removeItem("user");
+    },
+    handleShipping(state, action) {
+      state.shippingDetails = action.payload;
+      localStorage.setItem("shipping", JSON.stringify(state.shippingDetails));
     },
   },
 });

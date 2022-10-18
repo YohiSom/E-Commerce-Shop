@@ -16,7 +16,7 @@ const auth = asyncHandler(async (req, res, next) => {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
 
     req.user = { userId: payload.userId };
-
+    // console.log(payload);
     // the .user is just a name - you can name it req.foo if u wish
 
     next();
