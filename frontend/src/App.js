@@ -7,6 +7,7 @@ import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
 import Protected from "./components/ProtectedRoute";
 import { useSelector } from "react-redux";
+import ShippingPage from "./pages/ShippingPage";
 
 function App() {
   const user = useSelector((state) => state.user.user);
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/shipping" element={<ShippingPage />} />
           <Route
             path="/profile"
             element={

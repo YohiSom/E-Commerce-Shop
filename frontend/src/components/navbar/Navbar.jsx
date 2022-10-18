@@ -46,6 +46,7 @@ function Navbar() {
           <HomeOutlined />
         </Link>
       ),
+
       // icon: <MailOutlined />,
     },
     {
@@ -56,11 +57,7 @@ function Navbar() {
         </Link>
       ),
     },
-    {
-      label: !user ? "Sign In" : "Sign Out",
-      icon: <LoginOutlined />,
-      onClick: !user ? handleModelOpen : handleLogout,
-    },
+
     {
       label: user && "Profile",
       icon: user && (
@@ -68,6 +65,11 @@ function Navbar() {
           <ProfileOutlined />
         </Link>
       ),
+    },
+    {
+      label: !user ? "Sign In" : "Sign Out",
+      icon: <LoginOutlined />,
+      onClick: !user ? handleModelOpen : handleLogout,
     },
   ];
 

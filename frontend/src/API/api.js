@@ -64,4 +64,30 @@ const userLogin = async (email, password) => {
   }
 };
 
-export { getProducts, getProduct, userRegister, userLogin };
+const updateProfile = async (name, email, password, token) => {
+  const res = await fetch("http://localhost:8080/api/user/updateProfile", {
+    method: "PATCH",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify({ name, email, password }),
+  });
+
+  if (res) {
+    const data = await res.json();
+
+    if (res.ok === false) {
+      throw Error(data.message);
+    }
+
+    return data;
+  }
+};
+
+export { getProducts, getProduct, userRegister, userLogin, updateProfile };

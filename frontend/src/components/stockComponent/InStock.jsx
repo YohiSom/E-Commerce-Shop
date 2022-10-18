@@ -33,7 +33,7 @@ function InStock({ amount, stock, inStock, id }) {
   };
   const addToCartHandler = () => {
     let newCartObj = {
-      ...cartObject,
+      // ...cartObject,
       image,
       id: id,
       productName: name,

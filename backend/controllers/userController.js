@@ -94,6 +94,14 @@ const updateProfile = asyncHandler(async (req, res) => {
       await User.findOneAndUpdate(id, { name: req.body.name }, { new: true });
     }
     if (req.body.email) {
+      // const emailExists = await User.findOne({ email: req.body.email });
+
+      // if (emailExists) {
+      //   res.status(400);
+      //   throw new Error(
+      //     "You are trying to update an email that already exists in our database. Please try another email!"
+      //   );
+      // }
       await User.findOneAndUpdate(id, { email: req.body.email }, { new: true });
     }
     if (req.body.password) {
@@ -111,7 +119,13 @@ const updateProfile = asyncHandler(async (req, res) => {
 
   const token = userDetails.createJWT();
 
-  res.json({ userDetails, token });
+  res.json({
+    id: userDetails._id,
+    name: userDetails.name,
+    email: userDetails.email,
+    isAdmin: userDetails.isAdmin,
+    token,
+  });
 });
 
 export { userAuth, userRegister, profile, updateProfile };

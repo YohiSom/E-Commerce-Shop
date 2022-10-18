@@ -1,11 +1,19 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./Subtotal.scss";
 import "antd/dist/antd.css";
 import { Button } from "antd";
+import { useLocation, useNavigate } from "react-router-dom";
+import LoginModal from "../loginModal/LoginModal";
+import { userActions } from "../../store/user-slice";
 
-function SubTotal() {
+function SubTotal({ location }) {
   const cart = useSelector((state) => state.cart.cartArr);
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   let totaleItems = 0;
   let totalPrice = 0;
 
@@ -14,6 +22,10 @@ function SubTotal() {
     totalPrice = totalPrice + item.quantity * item.price;
     totalPrice = Math.round((totalPrice + Number.EPSILON) * 100) / 100;
   });
+
+  const checkoutHandler = () => {
+    !user ? dispatch(userActions.handleModal()) : navigate("/shipping");
+  };
 
   return (
     <div className="subtotal-container">
@@ -26,8 +38,11 @@ function SubTotal() {
         <div>{`${totalPrice} $`}</div>
       </div>
       <div className="checkout-btn">
-        <Button disabled={cart.length === 0}>Proceed to checkout</Button>
+        <Button disabled={cart.length === 0} onClick={checkoutHandler}>
+          Proceed to checkout
+        </Button>
       </div>
+      <LoginModal />
     </div>
   );
 }

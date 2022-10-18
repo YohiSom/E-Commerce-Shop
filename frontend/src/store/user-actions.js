@@ -1,5 +1,5 @@
 import { userActions } from "./user-slice";
-import { userRegister, userLogin } from "../API/api";
+import { userRegister, userLogin, updateProfile } from "../API/api";
 import { messageActions } from "./error-slice";
 
 export const register = (name, email, password) => async (dispatch) => {
@@ -65,3 +65,34 @@ export const login = (email, password) => async (dispatch) => {
     }, 3000);
   }
 };
+
+export const updateUserProfile =
+  (name, email, password, token) => async (dispatch) => {
+    try {
+      const res = await updateProfile(name, email, password, token);
+
+      dispatch(userActions.userData(res));
+      dispatch(
+        messageActions.showAlerts({
+          open: true,
+          message: "Successfully updated",
+          type: "success",
+        })
+      );
+
+      setTimeout(() => {
+        dispatch(messageActions.clearAlert({}));
+      }, 3000);
+    } catch (err) {
+      dispatch(
+        messageActions.showAlerts({
+          open: true,
+          message: err.message,
+          type: "error",
+        })
+      );
+      setTimeout(() => {
+        dispatch(messageActions.clearAlert({}));
+      }, 3000);
+    }
+  };
