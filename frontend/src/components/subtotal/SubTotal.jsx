@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import LoginModal from "../loginModal/LoginModal";
 import { userActions } from "../../store/user-slice";
 
-function SubTotal({ location }) {
+function SubTotal({ text }) {
   const cart = useSelector((state) => state.cart.cartArr);
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ function SubTotal({ location }) {
       </div>
       <div className="checkout-btn">
         <Button disabled={cart.length === 0} onClick={checkoutHandler}>
-          Proceed to checkout
+          {text}
         </Button>
       </div>
       <LoginModal />

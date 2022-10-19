@@ -73,7 +73,7 @@ function Cart() {
         })
       )}
       <div>
-        <SubTotal />
+        <SubTotal text="Proceed to checkout" />
       </div>
     </div>
   );

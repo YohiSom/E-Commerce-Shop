@@ -4,8 +4,11 @@ import "./shipping.scss";
 import "antd/dist/antd.css";
 import { Radio, Button } from "antd";
 import { useNavigate } from "react-router-dom";
+import { userActions } from "../store/user-slice";
+import { useDispatch } from "react-redux";
 
 function PaymentPage() {
+  const dispatch = useDispatch();
   const [shipping] = useState(true);
   const [payment] = useState(true);
   const [order] = useState(false);
@@ -14,6 +17,7 @@ function PaymentPage() {
   const [paymentOption, setPaymentOption] = useState("Paypal");
 
   const handlePaymentOption = () => {
+    dispatch(userActions.handlePaymentMethod(paymentOption));
     navigate("/order");
   };
 

@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const getLocalStorage = JSON.parse(localStorage.getItem("user"));
 const getLocalStorageShipping = JSON.parse(localStorage.getItem("shipping"));
+const getLocalStorageMethod = JSON.parse(localStorage.getItem("paymentMethod"));
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
     user: getLocalStorage || null,
     shippingDetails: getLocalStorageShipping || null,
+    paymentMethod: getLocalStorageMethod || null,
     modalOpen: false,
   },
   reducers: {
@@ -27,10 +29,18 @@ const userSlice = createSlice({
     clearUser(state) {
       state.user = null;
       localStorage.removeItem("user");
+      localStorage.removeItem("paymentMethod");
     },
     handleShipping(state, action) {
       state.shippingDetails = action.payload;
       localStorage.setItem("shipping", JSON.stringify(state.shippingDetails));
+    },
+    handlePaymentMethod(state, action) {
+      state.paymentMethod = action.payload;
+      localStorage.setItem(
+        "paymentMethod",
+        JSON.stringify(state.paymentMethod)
+      );
     },
   },
 });

@@ -1,0 +1,22 @@
+.summary-container {
+    display: flex;
+    border: 1px solid #EAEAEA;
+    box-sizing: border-box;
+    padding: 30px;
+    // width: 500px;
+}
+
+.order-summary{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 1px solid #EAEAEA;
+    box-sizing: border-box;
+}
+
+.order-summary-text {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #EAEAEA;
+    box-sizing: border-box;
+}
