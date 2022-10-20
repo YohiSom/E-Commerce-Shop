@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const getLocalStorage = JSON.parse(localStorage.getItem("user"));
 const getLocalStorageShipping = JSON.parse(localStorage.getItem("shipping"));
 const getLocalStorageMethod = JSON.parse(localStorage.getItem("paymentMethod"));
+const localStorageNewOrder = JSON.parse(localStorage.getItem("newOrder"));
 
 const userSlice = createSlice({
   name: "user",
@@ -10,7 +11,7 @@ const userSlice = createSlice({
     user: getLocalStorage || null,
     shippingDetails: getLocalStorageShipping || null,
     paymentMethod: getLocalStorageMethod || null,
-    order: null,
+    newOrder: localStorageNewOrder || null,
     modalOpen: false,
   },
   reducers: {
@@ -31,6 +32,7 @@ const userSlice = createSlice({
       state.user = null;
       localStorage.removeItem("user");
       localStorage.removeItem("paymentMethod");
+      localStorage.removeItem("newOrder");
     },
     handleShipping(state, action) {
       state.shippingDetails = action.payload;
@@ -44,7 +46,8 @@ const userSlice = createSlice({
       );
     },
     handleNewOrder(state, action) {
-      state.order = action.payload;
+      state.newOrder = action.payload;
+      localStorage.setItem("newOrder", JSON.stringify(state.newOrder));
     },
   },
 });

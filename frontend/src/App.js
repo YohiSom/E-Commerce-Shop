@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import ShippingPage from "./pages/ShippingPage";
 import PaymentPage from "./pages/PaymentPage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
+import OrderPage from "./pages/OrderPage";
 
 function App() {
   const user = useSelector((state) => state.user.user);
@@ -24,6 +25,7 @@ function App() {
           <Route path="/shipping" element={<ShippingPage />} />
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/order" element={<PlaceOrderPage />} />
+          <Route path="/order/:id" element={<OrderPage />} />
           <Route
             path="/profile"
             element={

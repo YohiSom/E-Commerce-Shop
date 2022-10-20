@@ -129,7 +129,7 @@ export const newOrderAction =
         dispatch(messageActions.clearAlert());
       }, 2000);
 
-      dispatch(cartActions.removeCartFromStorageAfterOrder());
+      // dispatch(cartActions.removeCartFromStorageAfterOrder());
     } catch (err) {
       dispatch(
         messageActions.showAlerts({

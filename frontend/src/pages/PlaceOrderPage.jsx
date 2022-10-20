@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutNavbar from "../components/CheckoutNavbar";
 import "./placeOrder.scss";
@@ -24,7 +24,12 @@ function PlaceOrderPage() {
   const { myAddress, myCity, myZip, myCoutry } = shippingDetails || {};
   const shipping = true;
   const payment = true;
-  const order = true;
+  const orderTrue = true;
+
+  const toDecimal = (x, y) => {
+    const total = (x * y).toFixed(2);
+    return total;
+  };
 
   return (
     <>
@@ -40,7 +45,7 @@ function PlaceOrderPage() {
                 className="checkout-container"
                 shipping={shipping}
                 payment={payment}
-                order={order}
+                order={orderTrue}
               />
             </div>
           </div>
@@ -73,16 +78,20 @@ function PlaceOrderPage() {
                             </span>
                             <span>
                               {item.quantity} X ${item.price} = $
-                              {`${item.quantity}` * `${item.price}`}
+                              {toDecimal(item.quantity, item.price)}
+                              {/* {`${item.quantity}` * `${item.price}`} */}
                             </span>
                           </Link>
                         </div>
                       );
                     })}
+
+                    {/* <button onClick={handleSuccess}>hello</button> */}
                   </div>{" "}
                 </div>
               </div>
               <div className="subTotal-container"></div>
+
               <OrderSummary />
             </div>
           ) : (

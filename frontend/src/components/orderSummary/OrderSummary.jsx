@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./orderSummary.scss";
 import "antd/dist/antd.css";
 import { Button, Alert } from "antd";
 import { newOrderAction } from "../../store/user-actions";
+import { useNavigate } from "react-router-dom";
+import { cartActions } from "../../store/cart-slice";
 
 function OrderSummary() {
   const cartArr = useSelector((state) => state.cart.cartArr);
   const shippingDetails = useSelector((state) => state.user.shippingDetails);
   const paymentMethod = useSelector((state) => state.user.paymentMethod);
   const token = useSelector((state) => state.user.user.token);
+  const newOrderId = useSelector((state) => state.user.newOrder);
+  const [success, setSuccess] = useState(false);
+
+  const { order } = newOrderId || {};
+  const { _id } = order || {};
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   let sum = 0;
 
@@ -20,14 +28,14 @@ function OrderSummary() {
   cartArr.forEach((item) => {
     sum = sum + item.quantity * item.price;
 
-    return sum;
+    return sum.toFixed(2);
   });
 
   const total = sum + shippingPrice;
 
   const totalPrice = total.toFixed(2);
 
-  const handleOrder = () => {
+  const handleOrder = async () => {
     dispatch(
       newOrderAction(
         cartArr,
@@ -37,7 +45,17 @@ function OrderSummary() {
         token
       )
     );
+
+    // .then(navigate(`/order/${_id}`));
   };
+
+  useEffect(() => {
+    // console.log(order);
+    if (order) {
+      dispatch(cartActions.removeCartFromStorageAfterOrder());
+      navigate(`/order/${order._id}`);
+    }
+  }, [order]);
 
   if (!shippingDetails || !paymentMethod)
     return (
@@ -57,7 +75,7 @@ function OrderSummary() {
             </span>
             <div className="order-summary-text">
               <span>Items</span>
-              <span> ${sum}</span>
+              <span> ${sum.toFixed(2)}</span>
             </div>
             <div className="order-summary-text">
               <span>Shipping</span>
