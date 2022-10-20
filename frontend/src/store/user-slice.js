@@ -10,6 +10,7 @@ const userSlice = createSlice({
     user: getLocalStorage || null,
     shippingDetails: getLocalStorageShipping || null,
     paymentMethod: getLocalStorageMethod || null,
+    order: null,
     modalOpen: false,
   },
   reducers: {
@@ -41,6 +42,9 @@ const userSlice = createSlice({
         "paymentMethod",
         JSON.stringify(state.paymentMethod)
       );
+    },
+    handleNewOrder(state, action) {
+      state.order = action.payload;
     },
   },
 });

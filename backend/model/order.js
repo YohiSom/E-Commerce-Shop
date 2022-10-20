@@ -4,8 +4,9 @@ const { Schema } = mongoose;
 const orderSchema = new Schema(
   {
     user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
-    oderItem: [
+    orderItem: [
       {
+        _id: false,
         name: { type: String, required: true },
         quantity: { type: Number, required: true },
         image: { type: String, required: true },
@@ -20,7 +21,7 @@ const orderSchema = new Schema(
     shippingAddress: {
       address: { type: String, required: true },
       city: { type: String, required: true },
-      postaleCode: { type: String, required: true },
+      postalCode: { type: String, required: true },
       country: { type: String, required: true },
     },
     paymentMethod: {

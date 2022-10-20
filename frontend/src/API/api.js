@@ -90,4 +90,48 @@ const updateProfile = async (name, email, password, token) => {
   }
 };
 
-export { getProducts, getProduct, userRegister, userLogin, updateProfile };
+const createOrder = async (
+  cartArr,
+  shippingDetails,
+  paymentMethod,
+  shippingPrice,
+  token
+) => {
+  const res = await fetch(`${baseUrl}/api/order`, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify({
+      cartArr,
+      shippingDetails,
+      paymentMethod,
+      shippingPrice,
+    }),
+  });
+
+  if (res) {
+    const data = await res.json();
+
+    if (res.ok === false) {
+      throw Error(data.message);
+    }
+
+    return data;
+  }
+};
+
+export {
+  getProducts,
+  getProduct,
+  userRegister,
+  userLogin,
+  updateProfile,
+  createOrder,
+};

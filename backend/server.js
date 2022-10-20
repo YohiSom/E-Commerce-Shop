@@ -6,6 +6,7 @@ import connectDb from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import userRoutes from "./routes/userRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 
 connectDb();
 
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 app.use(express.json());
 app.use("/api/products", productRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/order", orderRoutes);
 app.use(notFound);
 app.use(errorHandler);
 

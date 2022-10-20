@@ -6,12 +6,17 @@ import OrderSummary from "../components/orderSummary/OrderSummary";
 import { Link } from "react-router-dom";
 import LoginModal from "../components/loginModal/LoginModal";
 import { userActions } from "../store/user-slice";
+import "antd/dist/antd.css";
+import { Alert } from "antd";
 
 function PlaceOrderPage() {
   const shippingDetails = useSelector((state) => state.user.shippingDetails);
   const paymentMethod = useSelector((state) => state.user.paymentMethod);
   const cartItems = useSelector((state) => state.cart.cartArr);
   const user = useSelector((state) => state.user.user);
+  const alert = useSelector((state) => state.message.alerts);
+  const { open, message, type } = alert || {};
+
   const dispatch = useDispatch();
 
   !user && dispatch(userActions.handleModal());
@@ -23,6 +28,7 @@ function PlaceOrderPage() {
 
   return (
     <>
+      {open && <Alert message={message} type={type} />}
       <LoginModal />
       {user && (
         <>
