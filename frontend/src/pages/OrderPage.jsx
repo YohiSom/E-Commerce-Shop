@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import OrderHistory from "../components/orderHistorySummary/OrderHistory";
 import "antd/dist/antd.css";
-import { Spin } from "antd";
+import { Spin, Alert } from "antd";
 
 function OrderPage() {
   const { id } = useParams();
@@ -16,15 +16,18 @@ function OrderPage() {
   const { name, email } = user || {};
   const [orderDetail, setOrderDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
 
   const getOrder = async () => {
     try {
       const res = await getOrderById(id, token);
-      console.log(res);
+      // console.log(res);
       setOrderDetail(res);
       setIsLoading(false);
     } catch (err) {
-      console.log(err.message);
+      setIsOpen(true);
+      setMessage(err.message);
     }
   };
 
@@ -46,6 +49,7 @@ function OrderPage() {
 
   return (
     <div>
+      {isOpen && <Alert message={message} type="error" />}
       <OrderHistory
         orderId={id}
         name={name}

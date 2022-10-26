@@ -3,3 +3,18 @@
     margin-left: 20px;
     margin-right: 20px;
 }
+
+.orders-container {
+    margin-top: 20px;
+    margin-left: 20px;
+    display: flex;
+}
+
+.order-item {
+   
+    padding: 40px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #EAEAEA;
+    cursor: pointer;
+}

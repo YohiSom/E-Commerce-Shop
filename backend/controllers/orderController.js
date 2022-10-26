@@ -77,4 +77,17 @@ const getOrderById = asyncHandler(async (req, res) => {
   res.json(orderById);
 });
 
-export { createOrder, getOrderById };
+const getUserOrder = asyncHandler(async (req, res) => {
+  const userId = req.user.userId;
+
+  const orders = await Order.find({ user: userId });
+
+  if (orders.length == 0) {
+    res.json({ message: "You have no orders" });
+  } else {
+    res.status(201);
+    res.json(orders);
+  }
+});
+
+export { createOrder, getOrderById, getUserOrder };

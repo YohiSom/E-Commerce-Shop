@@ -53,7 +53,7 @@ function OrderHistory({
           {order.map((item) => {
             return (
               <div key={item.product}>
-                <img src={src} />
+                <img className="order-image" src={item.image} />
                 <span>{item.name}</span>
                 <span>{`${item.quantity} x ${item.price} = ${
                   item.quantity * item.price

@@ -151,6 +151,30 @@ const getOrderById = async (id, token) => {
     return data;
   }
 };
+const getUserOrders = async (token) => {
+  const res = await fetch(`${baseUrl}/api/order/myorders`, {
+    method: "GET",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+  });
+
+  if (res) {
+    const data = await res.json();
+
+    if (res.ok === false) {
+      throw Error(res.message);
+    }
+
+    return data;
+  }
+};
 
 export {
   getProducts,
@@ -160,4 +184,5 @@ export {
   updateProfile,
   createOrder,
   getOrderById,
+  getUserOrders,
 };

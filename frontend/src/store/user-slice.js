@@ -32,7 +32,7 @@ const userSlice = createSlice({
       state.user = null;
       localStorage.removeItem("user");
       localStorage.removeItem("paymentMethod");
-      localStorage.removeItem("newOrder");
+      localStorage.removeItem("shipping");
     },
     handleShipping(state, action) {
       state.shippingDetails = action.payload;
