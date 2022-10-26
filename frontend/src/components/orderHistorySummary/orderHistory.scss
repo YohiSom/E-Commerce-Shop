@@ -1,0 +1,25 @@
+.order-page-container {
+    margin-left: 20px;
+    margin-top: 20px;
+    display: flex;
+    
+}
+
+.order-detail-container{
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+}
+
+.order-number {
+    margin-bottom: 20px;
+}
+
+.shipping {
+    margin-bottom: 7px;
+}
+
+.payment {
+    margin-top: 20px;
+    margin-bottom: 7px;
+}

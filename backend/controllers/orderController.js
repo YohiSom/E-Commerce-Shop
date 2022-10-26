@@ -63,4 +63,18 @@ const createOrder = asyncHandler(async (req, res) => {
   //   console.log(userExist._id.toString());
 });
 
-export { createOrder };
+const getOrderById = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+
+  const orderById = await Order.findById(id).populate("user", "name email");
+
+  if (!orderById) {
+    res.status(400);
+    throw new Error("Order not found. Please try again");
+  }
+
+  res.status(201);
+  res.json(orderById);
+});
+
+export { createOrder, getOrderById };

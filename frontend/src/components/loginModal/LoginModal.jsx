@@ -42,7 +42,7 @@ function LoginModal({
           {messageOpen && <Alerts message={message} type={type} />}
           {showRegister && (
             <>
-              <label className="label-input">Name:</label>
+              <label className="label-input">Full Name:</label>
               <input
                 className="login-input"
                 type="text"

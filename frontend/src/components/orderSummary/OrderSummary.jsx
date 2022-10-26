@@ -6,17 +6,15 @@ import { Button, Alert } from "antd";
 import { newOrderAction } from "../../store/user-actions";
 import { useNavigate } from "react-router-dom";
 import { cartActions } from "../../store/cart-slice";
+import { createOrder } from "../../API/api";
 
 function OrderSummary() {
   const cartArr = useSelector((state) => state.cart.cartArr);
   const shippingDetails = useSelector((state) => state.user.shippingDetails);
   const paymentMethod = useSelector((state) => state.user.paymentMethod);
   const token = useSelector((state) => state.user.user.token);
-  const newOrderId = useSelector((state) => state.user.newOrder);
+  const [order, setOrder] = useState(null);
   const [success, setSuccess] = useState(false);
-
-  const { order } = newOrderId || {};
-  const { _id } = order || {};
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,15 +34,32 @@ function OrderSummary() {
   const totalPrice = total.toFixed(2);
 
   const handleOrder = async () => {
-    dispatch(
-      newOrderAction(
+    try {
+      const res = await createOrder(
         cartArr,
         shippingDetails,
         paymentMethod,
         shippingPrice,
         token
-      )
-    );
+      );
+      setOrder(res);
+    } catch (err) {
+      console.log(err.message);
+    }
+    // dispatch(
+    //   newOrderAction(
+    //     cartArr,
+    //     shippingDetails,
+    //     paymentMethod,
+    //     shippingPrice,
+    //     token
+    //   )
+    // ).then(
+    //   dispatch(cartActions.removeCartFromStorageAfterOrder()),
+    //   // navigate(`/order/${_id}`)
+
+    //   console.log(_id)
+    // );
 
     // .then(navigate(`/order/${_id}`));
   };
@@ -52,8 +67,10 @@ function OrderSummary() {
   useEffect(() => {
     // console.log(order);
     if (order) {
+      const id = order.order._id;
+
+      navigate(`/order/${id}`);
       dispatch(cartActions.removeCartFromStorageAfterOrder());
-      navigate(`/order/${order._id}`);
     }
   }, [order]);
 
