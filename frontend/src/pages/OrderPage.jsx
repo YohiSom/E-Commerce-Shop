@@ -54,18 +54,19 @@ function OrderPage() {
         orderId={id}
         name={name}
         email={email}
-        address={myAddress}
+        address={`${orderDetail.shippingAddress.address}, ${orderDetail.shippingAddress.city}, ${orderDetail.shippingAddress.postalCode}, ${orderDetail.shippingAddress.country}`}
         isDeliveredMessage={
           !orderDetail.isDelivered ? "Not Delivered" : "Delivered"
         }
         isDeliveredType={!orderDetail.isDelivered ? "error" : "success"}
-        paymentMethod={paymentMethod}
+        paymentMethod={orderDetail.paymentMethod}
         isPaidMessage={!orderDetail.isPaid ? "Not Paid" : "Paid"}
         isPaidType={!orderDetail.isPaid ? "error" : "success"}
         src={orderDetail.image}
         order={orderDetail.orderItem}
         item={sum}
         shipping={orderDetail.shippingPrice}
+        shippingAd={orderDetail}
       />
     </div>
   );

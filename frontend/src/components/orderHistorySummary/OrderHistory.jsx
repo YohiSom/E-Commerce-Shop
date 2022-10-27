@@ -18,6 +18,7 @@ function OrderHistory({
   order,
   item,
   shipping,
+  shippingAd,
 }) {
   return (
     <div className="order-page-container">
@@ -64,7 +65,12 @@ function OrderHistory({
         </div>
       </div>
 
-      <OrderSummaryHistory item={item} shipping={shipping} />
+      <OrderSummaryHistory
+        item={item}
+        shipping={shipping}
+        order={order}
+        shippingAd={shippingAd}
+      />
     </div>
   );
 }
