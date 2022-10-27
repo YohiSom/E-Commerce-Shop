@@ -176,6 +176,35 @@ const getUserOrders = async (token) => {
   }
 };
 
+const orderPaid = async (id, isPaid, token) => {
+  const res = await fetch(`${baseUrl}/api/order/orderPaid`, {
+    method: "PATCH",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify({
+      id,
+      isPaid,
+    }),
+  });
+
+  if (res) {
+    const data = await res.json();
+
+    if (res.ok === false) {
+      throw Error(res.message);
+    }
+
+    return data;
+  }
+};
+
 export {
   getProducts,
   getProduct,
@@ -185,4 +214,5 @@ export {
   createOrder,
   getOrderById,
   getUserOrders,
+  orderPaid,
 };

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "../orderSummary/orderSummary.scss";
 import "antd/dist/antd.css";
-import { Button } from "antd";
+import { Alert } from "antd";
+import { getOrderById, orderPaid } from "../../API/api";
 import {
   PayPalScriptProvider,
   PayPalButtons,
@@ -10,27 +11,39 @@ import {
 import { useEffect } from "react";
 
 const initialOptions = {
-  //   "client-id": `${process.env.PAYPAL_CLIENT_ID}`,
   "client-id": `${process.env.REACT_APP_PAYPAL_CLIENT_ID}`,
   currency: "USD",
   intent: "capture",
 };
 
-const Buttons = ({ order, item, shipping, shippingAd }) => {
+const Buttons = ({
+  orderDetails,
+  item,
+  shipping,
+  id,
+  isPaid,
+  token,
+  getNewOrder,
+}) => {
   const [{ isPending }] = usePayPalScriptReducer();
   const [paidFor, setPaidFor] = useState(false);
   const [error, setError] = useState("");
 
-  // if (paidFor) {
-  //   return (
-  //     <div>
-  //       <h1>Congrats, you just bought {order.numStones} stones!</h1>
-  //     </div>
-  //   )
-  // }
+  useEffect(() => {
+    if (paidFor) {
+      getNewOrder();
+    }
+  }, [paidFor]);
 
-  // if (error) return <div>Uh oh, an error occurred! {error.message}</div>
+  if (paidFor) {
+    return (
+      <Alert message="Transaction complete. Order is paid" type="success" />
+    );
+  }
+
+  if (error) return <Alert message={`${error}`} type="error" />;
   let total = item + shipping;
+
   return (
     <>
       {isPending ? (
@@ -68,25 +81,14 @@ const Buttons = ({ order, item, shipping, shippingAd }) => {
             });
           }}
           onApprove={async (data, actions) => {
-            // const completeOrder = await actions.order.capture();
-            // console.log(completeOrder);
             return actions.order.capture().then(function (details) {
               const { payer } = details;
               setPaidFor(true);
+              orderPaid(orderDetails._id, true, token);
             });
-
-            //   const boughtStones = db.buyStones(
-            //     userInfo,
-            //     order.chosenStones.map((x) => x.id)
-            //   )
-
-            //   console.log(boughtStones)
-
-            //   moveToNextStep(boughtStones)
           }}
           onError={(err) => {
-            setError(err);
-            console.error(err);
+            setError(err.message);
           }}
         />
       )}
@@ -94,7 +96,14 @@ const Buttons = ({ order, item, shipping, shippingAd }) => {
   );
 };
 
-function OrderSummaryHistory({ item, shipping, order, shippingAd }) {
+function OrderSummaryHistory({
+  item,
+  shipping,
+  order,
+  orderDetails,
+  token,
+  getNewOrder,
+}) {
   return (
     <PayPalScriptProvider options={initialOptions}>
       <div className="summary-container">
@@ -119,7 +128,9 @@ function OrderSummaryHistory({ item, shipping, order, shippingAd }) {
             order={order}
             item={item}
             shipping={shipping}
-            shippingAd={shippingAd}
+            orderDetails={orderDetails}
+            token={token}
+            getNewOrder={getNewOrder}
           >
             PAY ORDER
           </Buttons>

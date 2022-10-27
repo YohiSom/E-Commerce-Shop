@@ -19,6 +19,9 @@ function OrderHistory({
   item,
   shipping,
   shippingAd,
+  token,
+  orderDetails,
+  getNewOrder,
 }) {
   return (
     <div className="order-page-container">
@@ -70,6 +73,9 @@ function OrderHistory({
         shipping={shipping}
         order={order}
         shippingAd={shippingAd}
+        token={token}
+        orderDetails={orderDetails}
+        getNewOrder={getNewOrder}
       />
     </div>
   );

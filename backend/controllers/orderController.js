@@ -90,4 +90,18 @@ const getUserOrder = asyncHandler(async (req, res) => {
   }
 });
 
-export { createOrder, getOrderById, getUserOrder };
+const orderPaid = asyncHandler(async (req, res) => {
+  const { id, isPaid } = req.body;
+
+  // const order = await findById(id);
+
+  const order = await Order.findOneAndUpdate(
+    { _id: id },
+    { isPaid: isPaid },
+    { runValidators: true, useFindAndModify: false, new: true }
+  );
+
+  res.json(order);
+});
+
+export { createOrder, getOrderById, getUserOrder, orderPaid };

@@ -66,7 +66,9 @@ function OrderPage() {
         order={orderDetail.orderItem}
         item={sum}
         shipping={orderDetail.shippingPrice}
-        shippingAd={orderDetail}
+        orderDetails={orderDetail}
+        token={token}
+        getNewOrder={getOrder}
       />
     </div>
   );
