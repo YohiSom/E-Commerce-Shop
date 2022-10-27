@@ -44,11 +44,11 @@ const Buttons = ({
   if (error) return <Alert message={`${error}`} type="error" />;
   let total = item + shipping;
 
+  if (isPending) return <div>Loading</div>;
+
   return (
     <>
-      {isPending ? (
-        <div>Loading</div>
-      ) : (
+      {!orderDetails.isPaid && (
         <PayPalButtons
           // className="paypal-buttons-container"
           style={{ layout: "vertical" }}
