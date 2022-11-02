@@ -34,7 +34,7 @@ function Profile() {
       setOrders(res);
       setIsLoading(false);
 
-      console.log(res);
+      // console.log(res);
     } catch (err) {
       setIsOpen(true);
       setMessage(err.message);

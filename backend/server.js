@@ -7,6 +7,7 @@ import productRoutes from "./routes/productRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import invoiceRoutes from "./routes/invoiceRoute.js";
 
 connectDb();
 
@@ -19,6 +20,8 @@ app.use(express.json());
 app.use("/api/products", productRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/order", orderRoutes);
+app.use("/api/invoice", invoiceRoutes);
+
 app.use(notFound);
 app.use(errorHandler);
 
