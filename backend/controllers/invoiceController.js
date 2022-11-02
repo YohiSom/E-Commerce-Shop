@@ -16,22 +16,6 @@ const createInvoice = asyncHandler(async (req, res) => {
 
   const invoice = await Invoice.find({});
 
-  if (invoice.length == 0) {
-    await Invoice.create({
-      user: userId,
-      order: id,
-      invoiceNr: 0,
-    });
-  } else {
-    const invoiceNr = invoice[invoice.length - 1].invoiceNr + 1;
-
-    await Invoice.create({
-      user: userId,
-      order: id,
-      invoiceNr: invoiceNr,
-    });
-  }
-
   let numberInvoicePdf = 0;
 
   if (invoice.length == 0) {
@@ -50,11 +34,15 @@ const createInvoice = asyncHandler(async (req, res) => {
 
   doc.pipe(fs.createWriteStream(pdfPath));
   doc.end();
-  console.log(pdfPath);
 
-  await cloudinary.uploader.upload(pdfPath, function (error, result) {
-    console.log(result, error);
-  });
+  const pdfInvoice = await cloudinary.uploader.upload(
+    pdfPath,
+    function (error, result) {
+      console.log(result, error);
+    }
+  );
+
+  console.log(pdfInvoice.url);
 
   fs.unlink(pdfPath, (err) => {
     if (err) console.log("fs error", err);
@@ -65,6 +53,25 @@ const createInvoice = asyncHandler(async (req, res) => {
       // after deletion
     }
   });
+
+  if (invoice.length == 0) {
+    await Invoice.create({
+      user: userId,
+      order: id,
+      invoiceNr: 0,
+      pdfInvoice: pdfInvoice.url,
+    });
+  } else {
+    const invoiceNr = invoice[invoice.length - 1].invoiceNr + 1;
+
+    await Invoice.create({
+      user: userId,
+      order: id,
+      invoiceNr: invoiceNr,
+      pdfInvoice: pdfInvoice.url,
+    });
+  }
+
   //   fs.promises.unlink(pdfPath);
   //   .then((result) => {
   //     const pdfFile = {
