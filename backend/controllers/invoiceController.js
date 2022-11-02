@@ -7,6 +7,7 @@ import { uploads } from "./cloudinary.js";
 import { v2 as cloudinary } from "cloudinary";
 import Invoice from "../model/invoice.js";
 import User from "../model/user.js";
+import nodemailer from "nodemailer";
 
 const createInvoice = asyncHandler(async (req, res) => {
   let doc = new PDFDocument({ size: "A4", margin: 50 });
@@ -83,6 +84,50 @@ const createInvoice = asyncHandler(async (req, res) => {
   //   });
 
   //   const pdfOutput = doc.output("datauristring");
+
+  const user = await User.findById(userId);
+  const email = user.email;
+
+  const message = {
+    from: "accounting@eshop.com",
+    to: `${email}`,
+    subject: "Thank you for your purchase!",
+    html: "<p>Dear buyer,</p><p>Thank you for your purchase!</p><p>Please find attached your invoice.</p><p>You can track the delivery in your profile.</p><p>Best wishes,</p><p>the E-Shop team!</p>",
+    attachments: [
+      {
+        filename: "invoice.pdf",
+        path: pdfInvoice.url,
+      },
+    ],
+  };
+  // Use mailer to send invoice
+  nodemailer
+    // .createTransport({ jsonTransport: true })
+    .createTransport({
+      host: "smtp.mailtrap.io",
+      port: 2525,
+      auth: {
+        user: "f85245292b6dc4",
+        pass: "0485e0fa446e8c",
+      },
+    })
+    .sendMail(message, function (err, info) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(info.message);
+        // res.redirect('/invoices?success=1');
+      }
+    });
+
+  //   createTransport({
+  //     host: "smtp.mailtrap.io",
+  //     port: 2525,
+  //     auth: {
+  //       user: "f85245292b6dc4",
+  //       pass: "0485e0fa446e8c",
+  //     },
+  //   });
 
   res.status(200);
   res.send("ok");
